@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Survey Form</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        header {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        nav ul li {
+            display: inline;
+            margin-right: 20px;
+        }
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+        }
+        main {
+            padding: 20px;
+        }
+        section {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+        input[type="number"], input[type="text"], input[type="radio"] {
+            margin-bottom: 12px;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            nav ul li {
+                display: block;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#section1">Section 1</a></li>
+                <li><a href="#section2">Section 2</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="section1">
+            <h2>Section 1: Personal Information</h2>
+            <form id="surveyForm">
+                <label for="age">Age:</label>
+                <input type="number" id="age" name="age" required>
+
+                <div id="driversLicenseQuestion" style="display:none;">
+                    <label>Do you have a driver's license?</label>
+                    <input type="radio" id="yes" name="driversLicense" value="yes">
+                    <label for="yes">Yes</label>
+                    <input type="radio" id="no" name="driversLicense" value="no">
+                    <label for="no">No</label>
+                </div>
+
+                <div id="vehicleTypeQuestion" style="display:none;">
+                    <label for="vehicleType">What type of vehicle do you own?</label>
+                    <input type="text" id="vehicleType" name="vehicleType">
+                </div>
+
+                <button type="submit">Submit</button>
+            </form>
+        </section>
+
+        <section id="section2">
+            <h2>Section 2: Feedback</h2>
+            <p>Provide your feedback here.</p>
+        </section>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const ageInput = document.getElementById('age');
+            const driversLicenseQuestion = document.getElementById('driversLicenseQuestion');
+            const vehicleTypeQuestion = document.getElementById('vehicleTypeQuestion');
+
+            ageInput.addEventListener('input', function () {
+                if (parseInt(ageInput.value) >= 18) {
+                    driversLicenseQuestion.style.display = 'block';
+                } else {
+                    driversLicenseQuestion.style.display = 'none';
+                    vehicleTypeQuestion.style.display = 'none';
+                }
+            });
+
+            const driversLicenseRadios = document.getElementsByName('driversLicense');
+            driversLicenseRadios.forEach(radio => {
+                radio.addEventListener('change', function () {
+                    if (this.value === 'yes') {
+                        vehicleTypeQuestion.style.display = 'block';
+                    } else {
+                        vehicleTypeQuestion.style.display = 'none';
+                    }
+                });
+            });
+
+            const form = document.getElementById('surveyForm');
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+                alert('Form submitted!');
+            });
+        });
+    </script>
+</body>
+</html>
